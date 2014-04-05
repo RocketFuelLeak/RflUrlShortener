@@ -4,24 +4,21 @@
   .row
     .col-sm-8.col-sm-offset-2
       = render 'urls/form'
-      /form.form action="/_" method="post"
-        .input-group
-          input#url_long.form-control.input-lg name="url[long]" type="url" size="255" maxlength="255" placeholder="http://www.example.com/"
-          span.input-group-btn
-            button.btn.btn-primary.btn-lg type="submit" name="commit" Create
-
 .row
   .col-md-12
-    table.table.table-striped
-      thead
-        tr
-          th Long
-          th Short
-          th Created
-      tbody
-        - @urls.each do |url|
+    - if @urls.empty?
+      h3.text-center No URLs have been shortened yet!
+    - else
+      table.table.table-striped
+        thead
           tr
-            td = link_to url.long, url.long
-            td = link_to goto_url(url.short), goto_path(url.short)
-            td #{time_ago_in_words(url.created_at)} ago
-    = paginate @urls
+            th Long
+            th Short
+            th Created
+        tbody
+          - @urls.each do |url|
+            tr
+              td = link_to url.long, url.long
+              td = link_to goto_url(url.short), goto_path(url.short)
+              td #{time_ago_in_words(url.created_at)} ago
+      = paginate @urls
