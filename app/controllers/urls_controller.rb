@@ -1,10 +1,12 @@
 class UrlsController < ApplicationController
+  protect_from_forgery with: :null_session, :if => Proc.new { |c| c.request.format == 'application/json' }
   before_action :set_url, only: [:show, :edit, :update, :destroy]
 
   # GET /urls
   # GET /urls.json
   def index
-    @urls = Url.all
+    @url = Url.new
+    @urls = Url.recent.page(params[:page]).per(25)
   end
 
   # GET /urls/1
@@ -25,13 +27,20 @@ class UrlsController < ApplicationController
   # POST /urls.json
   def create
     @url = Url.new(url_params)
+    @url = Url.get_from_long(@url.long) if @url.duplicate?
 
     respond_to do |format|
-      if @url.save
-        format.html { redirect_to @url, notice: 'Url was successfully created.' }
+      if not @url.new_record?
+        format.html { redirect_to root_path, notice: 'URL already existed.' }
+        format.json { render action: 'show', status: :ok, location: @url }
+      elsif @url.save
+        format.html { redirect_to root_path, notice: 'Url was successfully created.' }
         format.json { render action: 'show', status: :created, location: @url }
       else
-        format.html { render action: 'new' }
+        format.html do
+          @urls = Url.recent.page(params[:page]).per(25)
+          render action: 'index'
+        end
         format.json { render json: @url.errors, status: :unprocessable_entity }
       end
     end
@@ -61,14 +70,24 @@ class UrlsController < ApplicationController
     end
   end
 
+  # GET /urls/abcABC123
+  def goto
+    @url = Url.get_from_short(params[:short])
+    if @url
+      redirect_to @url.long, status: 301
+    else
+      redirect_to root_url
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_url
-      @url = Url.find(params[:id])
+      @url = Url.get_from_short(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def url_params
-      params.require(:url).permit(:long, :short)
+      params.require(:url).permit(:long)
     end
 end
