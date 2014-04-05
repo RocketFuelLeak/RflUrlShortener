@@ -27,9 +27,9 @@ namespace :deploy do
       upload! "config/secrets.example.yml", "#{shared_path}/config/secrets.yml"
       puts "Now edit the config files in #{shared_path}."
       puts "Execute the following commands:"
-      puts "sudo ln -nfs #{current_path}/config/nginx_#{rails_env}.conf /etc/nginx/sites-enabled/#{application}_#{rails_env}"
-      puts "sudo ln -nfs #{current_path}/config/unicorn_init_#{rails_env}.sh /etc/init.d/unicorn_#{application}_#{rails_env}"
-      puts "sudo update-rc.d -f unicorn_#{application}_#{rails_env} defaults"
+      puts "sudo ln -nfs #{current_path}/config/nginx_#{fetch(:rails_env)}.conf /etc/nginx/sites-enabled/#{fetch(:application)}_#{fetch(:rails_env)}"
+      puts "sudo ln -nfs #{current_path}/config/unicorn_init_#{fetch(:rails_env)}.sh /etc/init.d/unicorn_#{fetch(:application)}_#{fetch(:rails_env)}"
+      puts "sudo update-rc.d -f unicorn_#{fetch(:application)}_#{fetch(:rails_env)} defaults"
     end
   end
 
