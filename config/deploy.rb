@@ -23,8 +23,8 @@ namespace :deploy do
   task :setup_configs do
     on roles(:app) do
       execute "mkdir -p #{shared_path}/config"
-      upload! "config/database.yml.example", "#{shared_path}/config/database.yml"
-      upload! "config/secrets.yml.example", "#{shared_path}/config/secrets.yml"
+      upload! "config/database.example.yml", "#{shared_path}/config/database.yml"
+      upload! "config/secrets.example.yml", "#{shared_path}/config/secrets.yml"
       puts "Now edit the config files in #{shared_path}."
       puts "Execute the following commands:"
       puts "sudo ln -nfs #{current_path}/config/nginx_#{rails_env}.conf /etc/nginx/sites-enabled/#{application}_#{rails_env}"
