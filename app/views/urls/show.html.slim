@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Long:
+  = @url.long
+p
+  strong Short:
+  = @url.short
+
+= link_to 'Edit', edit_url_path(@url)
+'|
+= link_to 'Back', urls_path

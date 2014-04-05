@@ -1,0 +1,23 @@
+h1 Listing urls
+
+table
+  thead
+    tr
+      th Long
+      th Short
+      th
+      th
+      th
+
+  tbody
+    - @urls.each do |url|
+      tr
+        td = url.long
+        td = url.short
+        td = link_to 'Show', url
+        td = link_to 'Edit', edit_url_path(url)
+        td = link_to 'Destroy', url, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Url', new_url_path
