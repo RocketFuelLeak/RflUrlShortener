@@ -7,16 +7,14 @@ module Bijective
             return ALPHABET[0] if i == 0
             s = ''
             while i > 0
-                s << ALPHABET[i.modulo(BASE)]
-                i /= BASE
+                i, n = i.divmod(BASE)
+                s << ALPHABET[n]
             end
             s.reverse
         end
 
         def self.decode(s)
-            i = 0
-            s.each_char { |c| i = i * BASE + ALPHABET.index(c) }
-            i
+            s.chars.reduce (0) { |n, ch| n * BASE + ALPHABET.index(ch) }
         end
     end
 end
