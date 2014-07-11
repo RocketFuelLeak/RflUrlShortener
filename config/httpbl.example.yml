@@ -1,0 +1,8 @@
+development:
+    api_key: "xxx"
+test:
+    api_key: "xxx"
+staging:
+    api_key: "xxx"
+production:
+    api_key: "xxx"

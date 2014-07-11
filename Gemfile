@@ -16,6 +16,8 @@ gem 'validate_url'
 #gem 'devise'
 #gem 'omniauth-google-oauth2'
 #gem 'cancancan', '~> 1.7'
+gem 'memcache-client'
+gem 'httpbl'
 
 group :development do
     gem 'sqlite3'
