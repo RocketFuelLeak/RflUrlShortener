@@ -4,7 +4,7 @@ set :application, 'RflUrlShortener'
 set :repo_url, 'git@github.com:RocketFuelLeak/RflUrlShortener.git'
 set :deploy_to, "/home/#{fetch(:user, 'rails')}/apps/#{fetch(:application)}"
 set :log_level, ENV['LOG_LEVEL'] || :info
-set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml config/httpbl.yml}
 set :ssh_options, { forward_agent: true }
 
 namespace :deploy do
@@ -25,6 +25,7 @@ namespace :deploy do
       execute "mkdir -p #{shared_path}/config"
       upload! "config/database.example.yml", "#{shared_path}/config/database.yml"
       upload! "config/secrets.example.yml", "#{shared_path}/config/secrets.yml"
+      upload! "config/httpbl.example.yml", "#{shared_path}/config/httpbl.yml"
       puts "Now edit the config files in #{shared_path}."
       puts "Execute the following commands:"
       puts "sudo ln -nfs #{current_path}/config/nginx_#{fetch(:rails_env)}.conf /etc/nginx/sites-enabled/#{fetch(:application)}_#{fetch(:rails_env)}"
