@@ -3,7 +3,7 @@ lock '3.1.0'
 set :application, 'RflUrlShortener'
 set :repo_url, 'git@github.com:RocketFuelLeak/RflUrlShortener.git'
 set :deploy_to, "/home/#{fetch(:user, 'rails')}/apps/#{fetch(:application)}"
-set :log_level, :info
+set :log_level, ENV['LOG_LEVEL'] || :info
 set :linked_files, %w{config/database.yml config/secrets.yml}
 set :ssh_options, { forward_agent: true }
 
