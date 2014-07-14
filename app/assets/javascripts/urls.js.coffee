@@ -21,6 +21,7 @@ clearFormErrors = ->
 inProgress = false
 
 $(document).on 'ready page:load', ->
+    $('#url_email').hide()
     form = $('#new_url')
     form.on 'submit', (e) ->
         e.preventDefault()
@@ -28,6 +29,7 @@ $(document).on 'ready page:load', ->
         inProgress = true
         clearFormErrors()
         long = $('#url_long').val()
+        email = $('#url_email').val()
         button = $('#new_url input[name="commit"]')
         button.button 'loading'
         $.ajax(
@@ -38,6 +40,7 @@ $(document).on 'ready page:load', ->
             data:
                 url:
                     long: long
+                    email: email
             success: showSuccess
             error: showError
         ).always ->

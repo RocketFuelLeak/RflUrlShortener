@@ -1,4 +1,5 @@
 = form_for @url do |f|
+  = f.email_field :email, label: false, placeholder: 'Typing in this brings death'
   .notice-container
     - if @url.errors.any?
       .alert.alert-danger Unable to shorten URL, make sure you are inputting a valid URL.
