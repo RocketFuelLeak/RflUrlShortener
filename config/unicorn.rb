@@ -7,7 +7,7 @@ stdout_path "#{APP_PATH}/shared/log/unicorn.log"
 stderr_path "#{APP_PATH}/shared/log/unicorn.err.log"
 
 listen "/tmp/unicorn.#{APP_NAME}.sock"
-worker_processes 2
+worker_processes 1
 timeout 30
 
 preload_app true
