@@ -4,21 +4,22 @@
   .row
     .col-sm-8.col-sm-offset-2
       = render 'urls/form'
-.row
-  .col-md-12
-    - if @urls.empty?
-      h3.text-center No URLs have been shortened yet!
-    - else
-      table.table.table-striped
-        thead
-          tr
-            th Long
-            th Short
-            th Created
-        tbody
-          - @urls.each do |url|
-            tr
-              td = link_to url.long, url.long
-              td = link_to goto_url(url.short), goto_path(url.short)
-              td #{time_ago_in_words(url.created_at)} ago
-      = paginate @urls
+
+/.row
+/  .col-md-12
+/    - if @urls.empty?
+/      h3.text-center No URLs have been shortened yet!
+/    - else
+/      table.table.table-striped
+/        thead
+/          tr
+/            th Long
+/            th Short
+/            th Created
+/        tbody
+/          - @urls.each do |url|
+/            tr
+/              td = link_to url.long, url.long
+/              td = link_to goto_url(url.short), goto_path(url.short)
+/              td #{time_ago_in_words(url.created_at)} ago
+/      = paginate @urls
